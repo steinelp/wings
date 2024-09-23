@@ -62,8 +62,8 @@ func (a *Allocations) Bindings() nat.PortMap {
 			udp := nat.Port(fmt.Sprintf("%d/udp", port))
 
 			// Append the bindings to the out map for both TCP and UDP.
-			out[tcp] = append(out[tcp], binding, ipv6Binding)
-			out[udp] = append(out[udp], binding, ipv6Binding)
+			out[tcp] = append(out[tcp], ipv6Binding)
+			out[udp] = append(out[udp], ipv6Binding)
 		}
 	}
 
