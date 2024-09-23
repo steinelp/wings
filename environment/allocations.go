@@ -54,7 +54,7 @@ func (a *Allocations) Bindings() nat.PortMap {
 			// Create additional binding for "[::]" (IPv6 unspecified address).
 			ipv6Binding := nat.PortBinding{
 				HostIP:   "[::]",
-				HostPort: strconv.Itoa(port),
+				HostPort: strconv.Itoa(port+1),
 			}
 
 			// Define the TCP and UDP ports.
@@ -113,6 +113,7 @@ func (a *Allocations) Exposed() nat.PortSet {
 
 	for port := range a.DockerBindings() {
 		out[port] = struct{}{}
+		fmt.Printf("Debug: Exposed port: %s\n", port)
 	}
 
 	return out
