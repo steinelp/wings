@@ -53,8 +53,8 @@ func (a *Allocations) Bindings() nat.PortMap {
 
 			// Create additional binding for "[::]" (IPv6 unspecified address).
 			ipv6Binding := nat.PortBinding{
-				HostIP:   "[::]",
-				HostPort: strconv.Itoa(port+1),
+				HostIP6:   "[::]",
+				HostPort6: strconv.Itoa(port+1),
 			}
 
 			// Define the TCP and UDP ports.
