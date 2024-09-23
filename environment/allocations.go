@@ -45,21 +45,31 @@ func (a *Allocations) Bindings() nat.PortMap {
 				continue
 			}
 
+			// Create the primary binding with the given IP address.
 			binding := nat.PortBinding{
 				HostIP:   ip,
 				HostPort: strconv.Itoa(port),
 			}
 
+			// Create additional binding for "[::]" (IPv6 unspecified address).
+			ipv6Binding := nat.PortBinding{
+				HostIP:   "[::]",
+				HostPort: strconv.Itoa(port),
+			}
+
+			// Define the TCP and UDP ports.
 			tcp := nat.Port(fmt.Sprintf("%d/tcp", port))
 			udp := nat.Port(fmt.Sprintf("%d/udp", port))
 
-			out[tcp] = append(out[tcp], binding)
-			out[udp] = append(out[udp], binding)
+			// Append the bindings to the out map for both TCP and UDP.
+			out[tcp] = append(out[tcp], binding, ipv6Binding)
+			out[udp] = append(out[udp], binding, ipv6Binding)
 		}
 	}
 
 	return out
 }
+
 
 // Returns the bindings for the server in a way that is supported correctly by Docker. This replaces
 // any reference to 127.0.0.1 with the IP of the pelican0 network interface which will allow the
