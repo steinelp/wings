@@ -113,7 +113,6 @@ func (a *Allocations) Exposed() nat.PortSet {
 
 	for port := range a.DockerBindings() {
 		out[port] = struct{}{}
-		fmt.Printf("Debug: Exposed port: %s\n", port)
 	}
 
 	return out
