@@ -46,7 +46,7 @@ func (a *Allocations) Bindings() nat.PortMap {
 			}
 
 			// Create the primary binding with the given IP address.
-			binding := nat.PortBinding{
+			binding4 := nat.PortBinding{
 				HostIP:   ip,
 				HostPort: strconv.Itoa(port),
 			}
