@@ -46,13 +46,13 @@ func (a *Allocations) Bindings() nat.PortMap {
 			}
 
 			// Create the primary binding with the given IP address.
-			// binding := nat.PortBinding{
-			// 	HostIP:   ip,
-			// 	HostPort: strconv.Itoa(port),
-			// }
+			binding := nat.PortBinding{
+				HostIP:   ip,
+				HostPort: strconv.Itoa(port),
+			}
 
 			// Create additional binding for "[::]" (IPv6 unspecified address).
-			ipv6Binding := nat.PortBinding{
+			binding := nat.PortBinding{
 				HostIP:   "[::]",
 				HostPort: strconv.Itoa(port),
 			}
@@ -62,8 +62,8 @@ func (a *Allocations) Bindings() nat.PortMap {
 			udp := nat.Port(fmt.Sprintf("%d/udp", port))
 
 			// Append the bindings to the out map for both TCP and UDP.
-			out[tcp] = append(out[tcp], ipv6Binding)
-			out[udp] = append(out[udp], ipv6Binding)
+			out[tcp] = append(out[tcp], binding)
+			out[udp] = append(out[udp], binding)
 		}
 	}
 
