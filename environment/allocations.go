@@ -46,10 +46,10 @@ func (a *Allocations) Bindings() nat.PortMap {
 			}
 
 			// Create the primary binding with the given IP address.
-			binding := nat.PortBinding{
-				HostIP:   ip,
-				HostPort: strconv.Itoa(port),
-			}
+			// binding := nat.PortBinding{
+			// 	HostIP:   ip,
+			// 	HostPort: strconv.Itoa(port),
+			// }
 
 			// Create additional binding for "[::]" (IPv6 unspecified address).
 			ipv6Binding := nat.PortBinding{
