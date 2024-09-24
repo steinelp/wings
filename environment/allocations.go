@@ -51,7 +51,7 @@ func (a *Allocations) Bindings() nat.PortMap {
 				HostPort: strconv.Itoa(port),
 			}
 
-			.
+			
 			
 
 			// Define the TCP and UDP ports.
