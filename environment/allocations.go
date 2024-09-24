@@ -38,7 +38,7 @@ type Allocations struct {
 func (a *Allocations) Bindings() nat.PortMap {
 	out := nat.PortMap{}
 
-	for _, ports := range a.Mappings {
+	for ip, ports := range a.Mappings {
 		for _, port := range ports {
 			// Skip over invalid ports.
 			if port < 1 || port > 65535 {
@@ -47,7 +47,7 @@ func (a *Allocations) Bindings() nat.PortMap {
 
 			// Create the primary IPv4 binding with address 0.0.0.0 for both TCP and UDP.
 			ipv4Binding := nat.PortBinding{
-				HostIP:   "0.0.0.0",
+				HostIP:   ip,
 				HostPort: strconv.Itoa(port),
 			}
 
