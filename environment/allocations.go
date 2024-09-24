@@ -38,7 +38,7 @@ type Allocations struct {
 func (a *Allocations) Bindings() nat.PortMap {
 	out := nat.PortMap{}
 
-	for ip, ports := range a.Mappings {
+	for _, ports := range a.Mappings {
 		for _, port := range ports {
 			// Skip over invalid ports.
 			if port < 1 || port > 65535 {
@@ -46,10 +46,10 @@ func (a *Allocations) Bindings() nat.PortMap {
 			}
 
 			// Create the primary IPv4 binding with address 0.0.0.0 for both TCP and UDP.
-			ipv4Binding := nat.PortBinding{
-				HostIP:   ip,
-				HostPort: strconv.Itoa(port),
-			}
+			// ipv4Binding := nat.PortBinding{
+			// 	HostIP:   ip,
+			// 	HostPort: strconv.Itoa(port),
+			// }
 
 			// Create the additional IPv6 binding with address [::] for both TCP and UDP.
 			ipv6Binding := nat.PortBinding{
@@ -62,8 +62,8 @@ func (a *Allocations) Bindings() nat.PortMap {
 			udpPort := nat.Port(fmt.Sprintf("%d/udp", port))
 
 			// Append the IPv4 binding for TCP and UDP.
-			out[tcpPort] = append(out[tcpPort], ipv4Binding)
-			out[udpPort] = append(out[udpPort], ipv4Binding)
+			// out[tcpPort] = append(out[tcpPort], ipv4Binding)
+			// out[udpPort] = append(out[udpPort], ipv4Binding)
 
 			// Append the IPv6 binding for TCP and UDP.
 			out[tcpPort] = append(out[tcpPort], ipv6Binding)
