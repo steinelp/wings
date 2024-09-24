@@ -45,34 +45,29 @@ func (a *Allocations) Bindings() nat.PortMap {
 				continue
 			}
 
-			// Create the primary binding with the given IP address.
-			binding := nat.PortBinding{
+			// Create the primary IPv4 binding with address 0.0.0.0 for both TCP and UDP.
+			ipv4Binding := nat.PortBinding{
 				HostIP:   "0.0.0.0",
 				HostPort: strconv.Itoa(port),
 			}
 
-			// Create additional binding for "[::]" (IPv6 unspecified address)
-			IPv6binding := nat.PortBinding{
+			// Create the additional IPv6 binding with address [::] for both TCP and UDP.
+			ipv6Binding := nat.PortBinding{
 				HostIP:   "[::]",
 				HostPort: strconv.Itoa(port),
 			}
 
-			// Define the TCP and UDP ports.
-			tcp := nat.Port(fmt.Sprintf("%d/tcp", port))
-			udp := nat.Port(fmt.Sprintf("%d/udp", port))
+			// Define the TCP and UDP ports using the current port number.
+			tcpPort := nat.Port(fmt.Sprintf("%d/tcp", port))
+			udpPort := nat.Port(fmt.Sprintf("%d/udp", port))
 
-			// Append the bindings to the out map for both TCP and UDP.
-			out[tcp] = append(out[tcp], binding)
-			out[udp] = append(out[udp], binding)
-			
+			// Append the IPv4 binding for TCP and UDP.
+			out[tcpPort] = append(out[tcpPort], ipv4Binding)
+			out[udpPort] = append(out[udpPort], ipv4Binding)
 
-			// Define the TCP and UDP ports.
-			tcp6 := nat.Port(fmt.Sprintf("%d/tcp", port))
-			udp6 := nat.Port(fmt.Sprintf("%d/udp", port))
-
-			// Append the bindings to the out map for both TCP and UDP.
-			out[tcp6] = append(out[tcp6], IPv6binding)
-			out[udp6] = append(out[udp6], IPv6binding)
+			// Append the IPv6 binding for TCP and UDP.
+			out[tcpPort] = append(out[tcpPort], ipv6Binding)
+			out[udpPort] = append(out[udpPort], ipv6Binding)
 
 		}
 	}
